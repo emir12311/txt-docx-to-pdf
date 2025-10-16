@@ -1,11 +1,8 @@
-import sys
+import sys, os, subprocess
 from PyQt5.QtWidgets import (
     QApplication, QWidget, QLabel, QComboBox, QLineEdit,
     QPushButton, QFileDialog, QHBoxLayout, QVBoxLayout, QMessageBox
 )
-from fpdf import FPDF
-from docx2pdf import convert
-import os
 
 
 class MainWindow(QWidget):
@@ -72,27 +69,20 @@ class MainWindow(QWidget):
             return
 
         name, ext = os.path.splitext(self.file_name)
-        ext = ext.lower().replace(".", "") 
+        ext = ext.lower().replace(".", "")
+        output_dir = os.path.dirname(self.file_name)
 
-        if ext == "txt":
-            pdf = FPDF()
-            pdf.add_page()
-            pdf.set_font("Arial", size=12)
+        if ext in ["txt", "docx"]:
             try:
-                with open(self.file_name, mode="r", encoding="utf-8") as f:
-                    for line in f:
-                        pdf.cell(200, 10, txt=line.strip(), ln=True)
-                pdf.output(name + ".pdf")
+                subprocess.run([
+                    "soffice", "--headless", "--convert-to", "pdf",
+                    self.file_name, "--outdir", output_dir
+                ], check=True)
                 self.show_success()
-            except Exception as e:
-                self.show_error(str(e))
-
-        elif ext == "docx":
-            try:
-                convert(self.file_name, name + ".pdf")
-                self.show_success()
-            except Exception as e:
-                self.show_error(str(e))
+            except FileNotFoundError:
+                self.show_error("LibreOffice not found. Make sure 'soffice' is in your PATH.")
+            except subprocess.CalledProcessError as e:
+                self.show_error(f"{e}")
         else:
             self.warningcb()
 
