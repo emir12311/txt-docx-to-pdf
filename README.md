@@ -11,15 +11,14 @@ This time I built something actually useful — a **file converter app** that tu
 3. Hit **Convert to PDF**.  
 4. The app instantly makes a `.pdf` version and shows a success or error popup.  
 
-## 📦 Libraries Used
-These are the **non-built-in libraries** used in this project.  
-Install them before running the script using pip:
+## 📦 Libraries Needed
+Theres only one required library, and you can install it like this:
 ```bash
-pip install pyqt5, docx2pdf, fpdf
+pip install pyqt5
 ```
-- PyQt5 → Creates the graphical interface (buttons, dropdowns, dialogs, etc.)  
-- FPDF → Converts `.txt` files into `.pdf`  
-- docx2pdf → Converts `.docx` files into `.pdf`
+- PyQt5 → Creates the graphical interface (buttons, dropdowns, dialogs, etc.)
+
+IMPORTANT: This code also needs Libreoffice and for soffice.exe to be in PATH
 
   
 ## 🧠 What I Learned
@@ -30,7 +29,7 @@ pip install pyqt5, docx2pdf, fpdf
 
 ## 💾 Download
 Want to try the program directly?  
-👉 [Download TXT & DOCX to PDF Converter (.exe)](https://www.mediafire.com/file/5848cqde6c8qclb/txt-docx-to-pdf.exe/file)
+👉 [Download TXT & DOCX to PDF Converter (.exe)](https://www.mediafire.com/file/jmf48ickqzm2jqp/txt-docx-to-pdf.exe/file)
 
 ## 🖼️ Preview
 ![App Screenshot](image.png)
